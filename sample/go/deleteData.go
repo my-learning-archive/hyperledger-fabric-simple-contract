@@ -21,11 +21,11 @@ func main() {
 
 	// parsing arguments
 	args := os.Args
-	if len(args) != 2 {
-		fmt.Printf("Incorrect number of arguments! Try <key>")
+	if len(args) != 3 {
+		fmt.Printf("Incorrect number of arguments! Try <objType> <key>")
 		os.Exit(1)
 	}
-	key := args[1]
+	objType, key := args[1], args[2]
 
 	os.Setenv("DISCOVERY_AS_LOCALHOST", "true")
 
@@ -76,7 +76,7 @@ func main() {
 	contract := network.GetContract("sample")
 
 	// Submit the specified transaction (submitTransaction logs transaction in the blockchain).
-	result, err := contract.SubmitTransaction("DeleteData", key)
+	result, err := contract.SubmitTransaction("DeleteData", objType, key)
 	if err != nil {
 		fmt.Printf("Failed to submit transaction: %s\n", err)
 		os.Exit(1)

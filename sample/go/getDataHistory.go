@@ -22,11 +22,10 @@ func main() {
 	// parsing arguments
 	args := os.Args
 	if len(args) != 3 {
-		fmt.Printf("Incorrect number of arguments! Try <key> <value>")
+		fmt.Printf("Incorrect number of arguments! Try <objType> <key>")
 		os.Exit(1)
 	}
-	keyFrom := args[1]
-	keyTo := args[2]
+	objType, key := args[1], args[2]
 
 	os.Setenv("DISCOVERY_AS_LOCALHOST", "true")
 
@@ -77,7 +76,7 @@ func main() {
 	contract := network.GetContract("sample")
 
 	// Evaluate the specified transaction (evaluateTransaction does not log transaction in blockchain).
-	result, err := contract.EvaluateTransaction("ReadDataByRange", keyFrom, keyTo)
+	result, err := contract.EvaluateTransaction("GetDataHistory", objType, key)
 	if err != nil {
 		fmt.Printf("Failed to evaluate transaction: %s\n", err)
 		os.Exit(1)

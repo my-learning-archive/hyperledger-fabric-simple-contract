@@ -18,10 +18,11 @@ async function main() {
 
         // parsing arguments
         const args = process.argv;
-        if (args.length !== 3){
-            throw Error('Incorrect number of arguments! Try <key>')
+        if (args.length !== 4){
+            throw Error('Incorrect number of arguments! Try <objType> <key>')
         }
-        var key = args[2]
+        var objType = args[2]
+        var key = args[3]
 
         // load the network configuration
         const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
@@ -51,7 +52,7 @@ async function main() {
         const contract = network.getContract('sample');
 
         // Evaluate the specified transaction (evaluateTransaction does not log transaction in blockchain).
-        const result = await contract.evaluateTransaction('readData', key);
+        const result = await contract.evaluateTransaction('readData', objType, key);
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
         // Disconnect from the gateway.

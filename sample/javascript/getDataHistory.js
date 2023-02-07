@@ -9,24 +9,24 @@
 'use strict';
 
 const { Gateway, Wallets } = require('fabric-network');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
+
 
 async function main() {
     try {
 
         // parsing arguments
         const args = process.argv;
-        if (args.length !== 5){
-            throw Error('Incorrect number of arguments! Try <objType> <key> <value>')
+        if (args.length !== 4){
+            throw Error('Incorrect number of arguments! Try <objType> <key>')
         }
         var objType = args[2]
         var key = args[3]
-        var value = args[4]        
 
         // load the network configuration
         const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
-        let ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
+        const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
@@ -51,15 +51,15 @@ async function main() {
         // Get the contract from the network.
         const contract = network.getContract('sample');
 
-        // Submit the specified transaction (submitTransaction logs transaction in the blockchain).
-        const result = await contract.submitTransaction('writeData', objType, key, value);
-        console.log('Transaction has been submitted!');
+        // Evaluate the specified transaction (evaluateTransaction does not log transaction in blockchain).
+        const result = await contract.evaluateTransaction('getDataHistory', objType, key);
+        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
         // Disconnect from the gateway.
         await gateway.disconnect();
-
+        
     } catch (error) {
-        console.error(`Failed to submit transaction: ${error}`);
+        console.error(`Failed to evaluate transaction: ${error}`);
         process.exit(1);
     }
 }
