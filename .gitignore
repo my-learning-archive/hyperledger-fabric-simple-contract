@@ -6,3 +6,7 @@ sample/go/wallet/
 sample/javascript/node_modules/
 sample/javascript/wallet
 sample/javascript/package-lock.json
+sample/javascript-generalized/node_modules/
+sample/javascript-generalized/wallet
+sample/javascript-generalized/package-lock.json
+

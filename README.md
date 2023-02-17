@@ -68,6 +68,8 @@ To submit the `writeData()` and `readData()` transactions to the distributed led
 
 Be mindful that `writeData.js` and `readData.js` implement the API for the ledger, and the file names in this example match the names of the transactions they are requesting. This is a convenience and is not mandatory.
 
+There is also an implementation of a **generalized Javascript application**, available [here](./sample/javascript-generalized/).
+
 ---
 **To use the Go application**, prepare the environment as follows:
 
